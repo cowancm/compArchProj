@@ -50,7 +50,8 @@ module TopLevel(clk, rst, test_reg);
 	wire [2:0] aluFunc;
 	wire branchCtr;
 	wire jump;
-	
+
+	wire [1:0] aluOp;
 
 	PC pc(
 			.clk(clk),
@@ -152,22 +153,22 @@ module TopLevel(clk, rst, test_reg);
 
 	
 	Control CPUControl(
-			.instruction(), //blank
+			.instruction(iMemOut[31:26]), //blank
 			.regWrite(regWrite),
 			.regDst(regDst),
 			.aluSrc(aluSrc),
 			.memWrite(dMemWrite),
 			.memRead(dMemRead),
 			.memToReg(memToReg),
-			.aluOp(), //blank
+			.aluOp(aluOp), //blank
 			.jump(jump),
 			.branch(branchCtr)
 		);
 
 	ALUControl ALUControl(
-			.aluOp(), //blank
-			.opCode(), //blank
-			.func(), //blank
+			.aluOp(aluOp), //blank
+			.opCode(iMemOut[31:26]), //blank
+			.func(iMemOut[5:0]), //blank
 			.aluFunc(aluFunc)
 		);
 

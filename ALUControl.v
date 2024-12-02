@@ -11,18 +11,18 @@ module ALUControl(aluOp, opCode, func, aluFunc);
             case(func)
                 6'b100000: aluFunc <= 3'b000; //addition
                 //implement other operations here.
+                6'b100010: aluFunc <= 3'b001; //subtraction
                 default: aluFunc <= 3'bzzz;
             endcase
         end
-        else if (aluOp == 2'b00) begin
-        	aluFunc <= 3'b000; //addition for lw, sw
+        else if(aluOp == 2'b11 || aluOp == 2'b00)
+        begin
+            aluFunc <= 3'b000;
         end
-        else if (aluOp == 2'b01) begin
-        	aluFunc <= 3'b001; // beq
-        end
-        else if (aluOp == 2'b11) begin
-        	aluFunc <= 3'b000; // addi
+        else
+        begin
+            aluFunc <= 3'b001;
         end
     end
-
 endmodule
+
